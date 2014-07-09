@@ -29,7 +29,9 @@ public class DatabaseConnection {
 	}
 	
 	/*
-	 * 
+	 * For creation of tables and insertions
+	 * Crashes program on failure for testing
+	 * TODO: Remove System.exit() on final
 	 */
 	public void createOrUpdate(String statement) {
 		try {
@@ -45,7 +47,7 @@ public class DatabaseConnection {
 	}
 	
 	/*
-	 * Schema
+	 * Schema for table
 	 */
 	public void createTables() {
 		String tableSchema = 
@@ -72,6 +74,4 @@ public class DatabaseConnection {
 		//this.createOrUpdate("DROP TABLE IF EXISTS CLASSES;");
 		this.createOrUpdate(tableSchema);
 	}
-	
-
 }

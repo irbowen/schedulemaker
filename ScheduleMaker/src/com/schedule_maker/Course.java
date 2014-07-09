@@ -39,13 +39,12 @@ public class Course extends DatabaseConnection{
 	}
 	
 	/*
-	 * 
+	 * Query the database to construct the course object
 	 */
 	private void buildCourse() {
 		try {
 			Statement stmt = conn.createStatement();
 			String courseQuery = "SELECT * FROM CLASSES WHERE Subject_Code = '" + SubjectCode + "' AND Catalog_Num = '" + CatalogNumber + "';";
-			System.out.println(courseQuery);
 			ResultSet rs = stmt.executeQuery(courseQuery);
 			while(rs.next()) {
 				School = rs.getString("School");
@@ -76,22 +75,21 @@ public class Course extends DatabaseConnection{
 		System.out.println("School: " + School);
 		System.out.println("CourseTitle: " + CourseTitle);
 		for(ClassType tempClassType : DIS) {
-			System.out.println(tempClassType.CourseNumber + " " +tempClassType.startTime + " " + tempClassType.endTime);
+			System.out.println(tempClassType.CourseNumber + " " +tempClassType.StartTime + " " + tempClassType.EndTime);
 		}
 		for(ClassType tempClassType : LAB) {
-			System.out.println(tempClassType.CourseNumber + " " +tempClassType.startTime + " " + tempClassType.endTime);
+			System.out.println(tempClassType.CourseNumber + " " +tempClassType.StartTime + " " + tempClassType.EndTime);
 		}
 		for(ClassType tempClassType : LEC) {
-			System.out.println(tempClassType.CourseNumber + " " +tempClassType.startTime + " " + tempClassType.endTime);
+			System.out.println(tempClassType.CourseNumber + " " +tempClassType.StartTime + " " + tempClassType.EndTime);
 		}
 		for(ClassType tempClassType : REC) {
-			System.out.println(tempClassType.CourseNumber + " " +tempClassType.startTime + " " + tempClassType.endTime);
+			System.out.println(tempClassType.CourseNumber + " " +tempClassType.StartTime + " " + tempClassType.EndTime);
 		}
-		
 	}
 	
 	/*
-	 * 
+	 * Builds the list of the discussion, lab, and lecture components for the course
 	 */
 	private void buildList(String option) {
 		try {
@@ -101,15 +99,15 @@ public class Course extends DatabaseConnection{
 				"AND Component = '" + option + "';";
 			ResultSet rs = stmt.executeQuery(courseQuery);
 			while(rs.next()) {
-				ClassType cType = new ClassType();
-				cType.CourseNumber = rs.getString("Class_Number");
-				cType.Monday = rs.getInt("Monday");
-				cType.Tuesday = rs.getInt("Tuesday");
-				cType.Wednesday = rs.getInt("Wednesday");
-				cType.Thursday = rs.getInt("Thursday");
-				cType.Friday = rs.getInt("Friday");
-				cType.startTime = rs.getString("Start_TIme");
-				cType.endTime = rs.getString("End_Time");
+				int class_num = Integer.parseInt(rs.getString("Class_Number"));
+				boolean monday = rs.getInt("Monday") == 1;
+				boolean tuesday = rs.getInt("Tuesday") == 1;
+				boolean wednesday = rs.getInt("Wednesday") == 1;
+				boolean thursday = rs.getInt("Thursday") == 1;
+				boolean friday = rs.getInt("Friday") == 1;
+				String startTime = rs.getString("Start_TIme");
+				String endTime = rs.getString("End_Time");
+				ClassType cType = new ClassType(class_num, monday, tuesday, wednesday, thursday, friday, startTime, endTime);
 				switch(option) {
 					case "DIS":
 						DIS.add(cType);
@@ -130,9 +128,6 @@ public class Course extends DatabaseConnection{
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-			System.out.println(e.getCause());
 		}
 	}
-
 }
