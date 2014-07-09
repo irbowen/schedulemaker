@@ -1,8 +1,3 @@
-/*
- * Isaac Bowen
- * 2014-7-3
- */
-
 package com.schedule_maker;
 
 import java.sql.*;
@@ -34,7 +29,7 @@ public class DatabaseConnection {
 	}
 	
 	/*
-	 * Because I'm lazy
+	 * 
 	 */
 	public void createOrUpdate(String statement) {
 		try {
@@ -50,7 +45,7 @@ public class DatabaseConnection {
 	}
 	
 	/*
-	 * Schemas
+	 * Schema
 	 */
 	public void createTables() {
 		String tableSchema = 
@@ -74,7 +69,7 @@ public class DatabaseConnection {
 				"Location TEXT, " +
 				"Instructor TEXT " +
 			");";
-		this.createOrUpdate("DROP TABLE IF EXISTS CLASSES;");
+		//this.createOrUpdate("DROP TABLE IF EXISTS CLASSES;");
 		this.createOrUpdate(tableSchema);
 	}
 	

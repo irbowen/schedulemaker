@@ -1,8 +1,3 @@
-/*
- * Isaac Bowen
- * 2014-7-3
- */
-
 package com.schedule_maker;
 
 import java.sql.*;
@@ -12,6 +7,10 @@ import java.util.ArrayList;
  * 
  */
 public class Course extends DatabaseConnection{
+	
+	/*
+	 * 
+	 */
 	private String SubjectCode;//EECS, AERO, MECH, MATH
 	private String CatalogNumber;//370, 381
 	private String School;//Eng, LSA, etc
@@ -25,8 +24,10 @@ public class Course extends DatabaseConnection{
 	private ArrayList<ClassType> LAB;
 	private ArrayList<ClassType> LEC;
 	private ArrayList<ClassType> REC;
-	//There are other categories, but I don't care
 	
+	/*
+	 * 
+	 */
 	public Course(String subjectCode, String catalogNumber) {
 		SubjectCode = subjectCode;
 		CatalogNumber = catalogNumber;
@@ -37,6 +38,9 @@ public class Course extends DatabaseConnection{
 		this.buildCourse();
 	}
 	
+	/*
+	 * 
+	 */
 	private void buildCourse() {
 		try {
 			Statement stmt = conn.createStatement();
@@ -86,6 +90,9 @@ public class Course extends DatabaseConnection{
 		
 	}
 	
+	/*
+	 * 
+	 */
 	private void buildList(String option) {
 		try {
 			Statement stmt = conn.createStatement();
@@ -102,7 +109,6 @@ public class Course extends DatabaseConnection{
 				cType.Thursday = rs.getInt("Thursday");
 				cType.Friday = rs.getInt("Friday");
 				cType.startTime = rs.getString("Start_TIme");
-			//	System.out.println("The start time: " + cType.startTime);
 				cType.endTime = rs.getString("End_Time");
 				switch(option) {
 					case "DIS":

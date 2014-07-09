@@ -1,8 +1,3 @@
-/*
- * Isaac Bowen
- * 2014-7-3
- */
-
 package com.schedule_maker;
 
 import java.io.BufferedReader;
@@ -15,9 +10,16 @@ import java.util.ArrayList;
 public class Parse {
 	
 	/*
-	 * The connection to the database and the static path to the file
+	 * The connection to the database
 	 */
 	private DatabaseConnection conn;
+	
+	/*
+	 * CHANGE PATH
+	 * 
+	 * 
+	 * 
+	 */
 	private static final String PATH_TO_FILE= "C:\\Users\\Isaac\\Downloads\\FA2014.csv";
 	
 	/*
