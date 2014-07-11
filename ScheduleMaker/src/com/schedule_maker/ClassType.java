@@ -1,12 +1,12 @@
 package com.schedule_maker;
 
-/*
+/* 
  * A class that is used with the Course object to hold the time and course number information
  * for each section of each component of the class
  */
 public class ClassType {
 	
-	/*
+	/* ~nowicki~ test push
 	 * CourseNumber is the unique course identifier
 	 */
 	public int CourseNumber;
