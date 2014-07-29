@@ -1,16 +1,21 @@
-<html ng-app>
-  <head>
+<html ng-app='scheduleMaker'>
+<head>
     <meta charset="utf-8">
-    <title>Angular.js Example</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-  </head>
-  <body>
-  	<script type="text/javascript" src="scripts/angular.min.js"></script>
-  	<script type="text/javascript" src="scripts/app.js"></script>
-    Name:<input ng-model="name" type="text"/>
-    Hello {{name}}
-	<script src = 'scripts/fb_login.js'></script>
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-	</fb:login-button>
-  </body>
+    <title>Schedule Maker</title>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-resource.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="controllers/controller.js"></script>
+</head>
+<body>
+    <div ng-controller='Controller'>
+        Name:<input ng-model="name" type="text" />
+        Hello {{name}}
+        <ul>
+            <li ng-repeat='department in departments'>{{department.Subject_Code}} - {{department.Subject}}</li>
+        </ul>
+    </div>
+    
+    
+</body>
 </html>

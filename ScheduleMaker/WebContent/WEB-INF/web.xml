@@ -1,7 +1,10 @@
 <web-app version="3.0"
     xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
- 
+ <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
     <!-- Servlet declaration can be omitted in which case
          it would be automatically added by Jersey -->
     <servlet>

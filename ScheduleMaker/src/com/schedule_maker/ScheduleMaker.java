@@ -1,11 +1,13 @@
 package com.schedule_maker;
 
 import java.util.ArrayList;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -19,14 +21,15 @@ public class ScheduleMaker {
 	 * Converts an arraylist of strings to json
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONObject toJSON(ArrayList<String> list) {
+	private JSONArray toJSON(ArrayList<ArrayList<String>> grid) {
 		JSONArray arr = new JSONArray();
-		for(String item : list) {
-			arr.add(item);
+		for(ArrayList<String> list : grid) {
+			JSONObject obj = new JSONObject();
+			obj.put("Subject_Code", list.get(0));
+			obj.put("Subject", list.get(1));
+			arr.add(obj);
 		}
-		JSONObject json = new JSONObject();
-		json.put("data", arr);
-		return json;
+		return arr;
 	}
 	
 	/*
@@ -39,22 +42,22 @@ public class ScheduleMaker {
 	}
 	
 	/*
-	 * Returns the list of all departments in JSOM form
+	 * Returns the list of all departments in JSON form
 	 * TODO: Change @Produces to application/json after testing
 	 */
 	@Path("/departments")
 	@GET
-	@Produces("text/html")
+	@Produces("application/json")
 	public Response getDepartments() {
 		Query q = new Query();
-		JSONObject json = toJSON(q.getDepartments());
+		JSONArray json = toJSON(q.getDepartments());
 		return Response.status(200).entity(json.toString()).build(); 
 	}
 	
 	/*
-	 * Returns the list of all departments in JSOM form
+	 * Returns the list of all departments in JSON form
 	 * TODO: Change @Produces to application/json after testing
-	 */
+	 *//*
 	@Path("/departments/{dept_code}/classes")
 	@GET
 	@Produces("text/html")
@@ -69,6 +72,7 @@ public class ScheduleMaker {
 	 * Returns the list of all lecture course numbers
 	 * TODO: Change @Produces to application/json after testing
 	 */
+	/*
 	@Path("/departments/{dept_code}/classes/{catalog_num}")
 	@GET
 	@Produces("text/html")
@@ -82,6 +86,7 @@ public class ScheduleMaker {
 	 * Returns the list of all lecture course numbers
 	 * TODO: Change @Produces to application/json after testing
 	 */
+	/*
 	@Path("/departments/{dept_code}/classes/{catalog_num}/lec")
 	@GET
 	@Produces("text/html")
@@ -95,6 +100,7 @@ public class ScheduleMaker {
 	 * Returns the list of all departments in JSOM form
 	 * TODO: Change @Produces to application/json after testing
 	 */
+	/*
 	@Path("/departments/{dept_code}/classes/{catalog_num}/lab")
 	@GET
 	@Produces("text/html")
@@ -108,6 +114,7 @@ public class ScheduleMaker {
 	 * Returns the list of all departments in JSOM form
 	 * TODO: Change @Produces to application/json after testing
 	 */
+	/*
 	@Path("/departments/{dept_code}/classes/{catalog_num}/dis")
 	@GET
 	@Produces("text/html")
@@ -116,11 +123,11 @@ public class ScheduleMaker {
 		JSONObject json = toJSON(q.getDiscussions(dept_code, catalog_num));
 		return Response.status(200).entity(json.toString()).build(); 
 	}
-	
+	*/
 	/*
 	 * Returns the list of all departments in JSOM form
 	 * TODO: Change @Produces to application/json after testing
-	 */
+	 *//*
 	@Path("/departments/{dept_code}/classes/{catalog_num}/rec")
 	@GET
 	@Produces("text/html")
@@ -129,4 +136,5 @@ public class ScheduleMaker {
 		JSONObject json = toJSON(q.getRecitations(dept_code, catalog_num));
 		return Response.status(200).entity(json.toString()).build(); 
 	}
+	*/
 }

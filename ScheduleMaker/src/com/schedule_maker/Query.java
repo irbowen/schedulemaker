@@ -20,84 +20,92 @@ public class Query extends DatabaseConnection {
 	 * Returns all departments in the DB in an arraylist of strings
 	 * On failure, returns an empty list
 	 */
-	public ArrayList<String> getDepartments() {
-		String query = "SELECT DISTINCT Subject_Code FROM CLASSES ORDER BY Subject_Code;";
-		System.out.println(query);
-		return getQueryResults(query, "Subject_Code");
+	public ArrayList<ArrayList<String>> getDepartments() {
+		String query = "SELECT DISTINCT Subject_Code, Subject FROM CLASSES ORDER BY Subject_Code;";
+		String[] array = {"Subject_Code", "Subject"};
+		return getQueryResults(query, array);
 	}
 
 	/*
 	 * Returns all courses within a department, given its cdoe, as an arraylist of strings
 	 */
-	public ArrayList<String> getCourses(String dept_code) {
+	public ArrayList<ArrayList<String>> getCourses(String dept_code) {
 		String query = "SELECT DISTINCT Catalog_Num FROM CLASSES WHERE Subject_Code = '" 
 				+ dept_code + "' ORDER BY Catalog_Num;";
-		return getQueryResults(query, "Catalog_Num");
+		String[] array = {"Catalog_Num"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
-	 * Returns all courses within a department, given its cdoe, as an arraylist of strings
+	 * Returns all courses within a department, given its code, as an arraylist of strings
 	 */
-	public ArrayList<String> getAllComponents(String dept_code, String catalog_num) {
+	public ArrayList<ArrayList<String>> getAllComponents(String dept_code, String catalog_num) {
 		String query = "SELECT Class_Number FROM CLASSES WHERE Subject_Code = '" + dept_code + 
 						"' AND Catalog_Num = '" + catalog_num + "'";
-		return getQueryResults(query, "Class_Number");
+		String[] array = {"Class_Number"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
 	 * Returns the course numbers for each lecture section of the given class
 	 */
-	public ArrayList<String> getLectures(String dept_code, String catalog_num) {
+	public ArrayList<ArrayList<String>> getLectures(String dept_code, String catalog_num) {
 		String query = "SELECT Class_Number FROM CLASSES WHERE Subject_Code = '" + dept_code + 
 						"' AND Catalog_Num = '" + catalog_num + "' AND Component = 'LEC'";
-		return getQueryResults(query, "Class_Number");
+		String[] array = {"Class_Number"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
 	 * Returns the course numbers for each lab section of the given class
 	 */
-	public ArrayList<String> getLabratories(String dept_code, String catalog_num) {
+	public ArrayList<ArrayList<String>> getLabratories(String dept_code, String catalog_num) {
 		String query = "SELECT Class_Number FROM CLASSES WHERE Subject_Code = '" + dept_code + 
 						"' AND Catalog_Num = '" + catalog_num + "' AND Component = 'LAB'";
-		return getQueryResults(query, "Class_Number");
+		String[] array = {"Class_Number"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
 	 * Returns the course numbers for each discussion section of the given class
 	 */
-	public ArrayList<String> getDiscussions(String dept_code, String catalog_num) {
+	public ArrayList<ArrayList<String>> getDiscussions(String dept_code, String catalog_num) {
 		String query = "SELECT Class_Number FROM CLASSES WHERE Subject_Code = '" + dept_code + 
 						"' AND Catalog_Num = '" + catalog_num + "' AND Component = 'DIS'";
-		return getQueryResults(query, "Class_Number");
+		String[] array = {"Class_Number"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
 	 * Returns the course numbers for each recitation section of the given class
 	 */
-	public ArrayList<String> getRecitations(String dept_code, String catalog_num) {
+	public ArrayList<ArrayList<String>> getRecitations(String dept_code, String catalog_num) {
 		String query = "SELECT Class_Number FROM CLASSES WHERE Subject_Code = '" + dept_code + 
 						"' AND Catalog_Num = '" + catalog_num + "' AND Component = 'REC'";
-		return getQueryResults(query, "Class_Number");
+		String[] array = {"Class_Number"};
+		return getQueryResults(query, array);
 	}
 	
 	/*
 	 * Returns the query results in an array list
 	 */
-	public ArrayList<String> getQueryResults(String query, String param) {
-		ArrayList<String> list = new ArrayList<String>();
+	public ArrayList<ArrayList<String>> getQueryResults(String query, String[] params) {
+		ArrayList<ArrayList<String>>  grid = new ArrayList<ArrayList<String>>();
 		try {
 			Statement stmt;
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			while(rs.next()) {
-				String department = "";
-				department += rs.getString(param);
-				list.add(department);
+				ArrayList<String> list = new ArrayList<String>();
+				for(String item : params) {
+					list.add(rs.getString(item));
+				}
+				grid.add(list);
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return grid;
 	}
 }
