@@ -20,6 +20,7 @@ public class ScheduleMaker {
 	/*
 	 * Converts an arraylist of strings to json
 	 */
+	/*
 	@SuppressWarnings("unchecked")
 	private JSONArray toJSON(ArrayList<ArrayList<String>> grid) {
 		JSONArray arr = new JSONArray();
@@ -30,14 +31,20 @@ public class ScheduleMaker {
 			arr.add(obj);
 		}
 		return arr;
-	}
+	}*/
 	
 	/*
 	 * Just for initializing db
 	 */
 	@GET
 	public Response getMsg() {
-	//	DatabaseConnection conn = new DatabaseConnection();conn.createTables();Parse myParse = new Parse();myParse.parseFile();
+		/*
+		 * This is to load the data into the database
+		DatabaseConnection conn = new DatabaseConnection();
+		conn.createTables();
+		Parse myParse = new Parse();
+		myParse.parseFile();
+		*/
 		return Response.status(200).entity("Doing things").build(); 
 	}
 	
@@ -50,21 +57,19 @@ public class ScheduleMaker {
 	@Produces("application/json")
 	public Response getDepartments() {
 		Query q = new Query();
-		JSONArray json = toJSON(q.getDepartments());
+		JSONArray json = q.getDepartments();
 		return Response.status(200).entity(json.toString()).build(); 
 	}
 	
 	/*
 	 * Returns the list of all departments in JSON form
-	 * TODO: Change @Produces to application/json after testing
-	 *//*
+	 */
 	@Path("/departments/{dept_code}/classes")
 	@GET
-	@Produces("text/html")
+	@Produces("application/json")
 	public Response getCoursesByDeparment(@PathParam("dept_code") String dept_code) {
 		Query q = new Query();
-		JSONObject json = toJSON(q.getCourses(dept_code));
-		
+		JSONArray json = q.getCourses(dept_code);
 		return Response.status(200).entity(json.toString()).build(); 
 	}
 	

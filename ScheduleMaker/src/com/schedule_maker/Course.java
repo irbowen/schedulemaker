@@ -105,7 +105,7 @@ public class Course extends DatabaseConnection{
 				boolean wednesday = rs.getInt("Wednesday") == 1;
 				boolean thursday = rs.getInt("Thursday") == 1;
 				boolean friday = rs.getInt("Friday") == 1;
-				String startTime = rs.getString("Start_TIme");
+				String startTime = rs.getString("Start_Time");
 				String endTime = rs.getString("End_Time");
 				ClassType cType = new ClassType(class_num, monday, tuesday, wednesday, thursday, friday, startTime, endTime);
 				switch(option) {

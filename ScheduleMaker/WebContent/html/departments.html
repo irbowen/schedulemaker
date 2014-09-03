@@ -1,0 +1,8 @@
+Search for departments: <input type="text" ng-model="searchTerm">
+<ul>
+	<li ng-repeat='department in departments | filter:searchTerm'>
+		<button type="button" class="btn btn-default" ng-click='selectDepartment(department.Subject_Code)'>
+			{{department.Subject_Code}} - {{department.Subject}}
+		</button>
+	</li>
+</ul>

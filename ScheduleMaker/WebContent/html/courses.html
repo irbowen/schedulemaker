@@ -1,0 +1,13 @@
+Search for courses: <input type="text" ng-model="searchTerm">
+<ul>
+	<li>
+ 		<button type="button" class="btn btn-default" ng-click='showDepartments()'>
+   			Back
+  		</button>
+  	</li>
+ 	<li ng-repeat='course in courses | filter:searchTerm'>
+   		<button type="button" class="btn btn-default">
+    		{{course.Catalog_Num}} - {{course.Course_Title}}
+    	</button>
+   	</li>
+</ul>

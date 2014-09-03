@@ -1,25 +1,45 @@
-/*
- * The base file for the angular js application
- * TODO: Add routing for multiple pages
- */
-
 (function () {
     var app = angular.module('scheduleMaker');
 
-    var departmentURL = 'http://localhost:8080/ScheduleMaker/rest/departments/';
-    app.factory('departmentFactory', ['$resource',
-        function ($resource) {
-            console.log($resource(departmentURL, {}, {
-                query: { method: 'GET', isArray: true }
-            }));
-            return $resource(departmentURL, {});
-        }
-    ]);
-
     app.controller('Controller', ['$scope', 'departmentFactory',
         function ($scope, departmentFactory) {
-
-        $scope.departments = departmentFactory.query();
-
+    	
+	    	$scope.currentSubjectCode = '';
+	    	$scope.templateURL = 'html/departments.html';
+	    	getDepartments();
+	    	
+	    	function getDepartments() {
+	    		departmentFactory.getDepartments()
+	    		.success(function(departments) {
+	    			$scope.departments=departments;
+	    		})
+	    		.error(function(error) {
+	    			$scope.status = "error";
+	    			alert("Failure");
+	    		});
+	    	}
+	    	
+	    	function getCourses(Subject_Code) {
+	    		departmentFactory.getCourses(Subject_Code)
+	    		.success(function(courses) {
+	    			$scope.courses=courses;
+	    		})
+	    		.error(function(error) {
+	    			$scope.status = "error";
+	    			alert("Failure");
+	    		});
+	    	}
+	    	
+	        $scope.selectDepartment = function(Subject_Code) {
+	        	$scope.templateURL = "html/courses.html"
+	        	$scope.currentSubjectCode = Subject_Code;
+	        	getCourses(Subject_Code);
+	        }
+	        
+	        $scope.showDepartments = function() {
+	        	$scope.templateURL = "html/departments.html"
+	        }
+        
     }]);
+    
 })();
